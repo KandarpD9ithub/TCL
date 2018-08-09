@@ -1,0 +1,48 @@
+@import "../../../material/project";
+
+.DemoHeader {
+    height: 50px;
+    background-color: #fffff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.DemoHeader-container{
+    height: 100%;
+}
+
+.DemoHeader-logo {
+        width: 70px;
+    height: 40px;
+    padding: 0 20px;
+    margin-bottom: 5px;
+}
+
+.DemoHeader-link{
+    text-decoration: none;
+    color: #000000 !important;
+    padding: 0 20px;
+    display: inline-block;
+    transition: 250ms background-color;
+    line-height: 50px;
+}
+
+.DemoHeader-link:hover, .DemoHeader-link:active{
+     background-color: #004a80 !important;
+    color: white !important;
+}
+.DemoHeader-link:active{
+     background-color: #004a80 !important;
+    color: white !important;
+}
+.DemoHeader-spacer{
+    padding-top: 40px;
+}
+.active{
+     background-color: #004a80 !important;
+    color: white !important;
+}
+

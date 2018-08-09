@@ -1,0 +1,84 @@
+<div layout-xl="column" layout-align="start start" class="md-padding">
+   <div layout="row" class="searchbox-style" layout-align="space-between">
+        <h1 class="md-headline" class="md-padding" layout-padding>Customer Orders</h1>
+        <input type="text" ng-model="searchCustomerOrder" layout-align="end start" placeholder="Search by Order Number " class="searchOrder">
+       <!--  <md-button ng-if="vm.roleName !== '5'" class="md-primary md-raised" ui-sref="app.place_order" layout-align="end start">Add</md-button> -->
+        <!--<md-button><i class="material-icons" ng-click="killtimer()">autorenew</i></md-button>
+        <md-switch ng-model="data.cb1" aria-label="Switch 1">
+        </md-switch>-->
+
+    </div>
+    <md-card>
+        <md-card-title layout="row" layout-pading>
+            <md-card-title-text layout-align="start start" class="orderWidth">
+                <h2 class="md-title">Order No.</h2>
+            </md-card-title-text>
+            <md-card-title-text layout-align="start start" class="orderWidth">
+                <h2 class="md-title">Date & Time</h2>
+            </md-card-title-text>
+            <md-card-title-text layout-align="start start" class="orderWidth">
+                <h2 class="md-title">Table No.</h2>
+            </md-card-title-text>
+            <md-card-title-text layout-align="start start" style="max-width: 14% !important">
+                <h2 class="md-title">Order Handle By</h2>
+            </md-card-title-text>
+            <md-card-title-text layout-align="start start" style="max-width: 14% !important">
+                <h2 class="md-title">Customer Name</h2>
+            </md-card-title-text>
+            <md-card-title-text layout-align="start start" style="max-width: 25% !important">
+                <h2 class="md-title">Email Id</h2>
+            </md-card-title-text>
+            <md-card-title-text layout-align="start start" style="max-width: 5% !important">
+                <h2 class="md-title">Mobile No.</h2>
+            </md-card-title-text>
+            <md-card-title-text layout-align="end end">
+                <h2 class="md-title"><i class="material-icons">more_vert</i></h2>
+            </md-card-title-text>
+        </md-card-title>
+        <md-divider ></md-divider>
+        <div dir-paginate="orders in vm.customerOrder |filter:searchCustomerOrder|itemsPerPage:10">
+            <md-card-title layout="row" layout-pading>
+                <md-card-title-text layout-align="start start" class="orderWidth">
+                    <h3 class="md-subhead">{{orders.order_number}}</h3>
+                </md-card-title-text>
+                <md-card-title-text layout-align="start start" class="orderWidth">
+                    <h3 class="md-subhead">{{vm.toTimeStamp(orders.created_at) | date:"d/M/y h:mm"}}</h3>
+                </md-card-title-text>
+                <md-card-title-text layout-align="start start" class="orderWidth">
+                    <h3 class="md-subhead">{{vm.tables[orders.table_id] ? vm.tables[orders.table_id] : 'N/A'}}</h3>
+                </md-card-title-text> 
+                <md-card-title-text layout-align="start start" style="max-width: 14% !important">
+                    <h3 class="md-subhead">{{orders.employee.user.name}}</h3>
+                </md-card-title-text>
+                <md-card-title-text layout-align="start start" style="max-width: 14% !important">
+                    <h3 class="md-subhead">{{orders.customer.name}}</h3>
+                </md-card-title-text>
+                <md-card-title-text layout-align="start start" style="max-width: 25% !important">
+                    <h3 class="md-subhead">{{orders.customer.email}}</h3>
+                </md-card-title-text>
+                <md-card-title-text layout-align="start start" style="max-width: 5% !important">
+                    <h3 class="md-subhead">{{orders.customer.contact_number}}</h3>
+                </md-card-title-text>
+                 <md-card-title-text layout-align="end end">
+                <md-button type="submit" class="btn1" ng-click="vm.print(orders.id)">Print</md-button>
+                </md-card-title-text>
+            </md-card-title>
+            <md-divider ></md-divider>
+        </div>
+        <div ng-hide="vm.customerOrder.length">
+            <md-card-title layout="row" layout-pading>
+                <md-card-title-text layout-align="center center"">
+                    <h2 class="md-subhead">No Records Found</h2>
+                </md-card-title-text>
+            </md-card-title>
+        </div>
+    </md-card>
+    <div layout="row" layout-align="center center">
+        <dir-pagination-controls
+                max-size="5"
+                direction-links="true"
+                boundary-links="true" >
+        </dir-pagination-controls>
+    </div>
+</div>
+

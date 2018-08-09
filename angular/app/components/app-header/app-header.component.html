@@ -1,0 +1,31 @@
+<md-content class="Page-Container DemoHeader noprint">
+    <div layout="row">
+        <div flex="90" flex-offset="5" class="DemoHeader-container">
+            <div layout="row" layout-align="space-between">
+                <div ng-if="vm.roleName !== '5'" layout="row" layout-align="end end">
+                    <!--<a hide-xs class="DemoHeader-link">TCL</a>-->
+                    <img ng-src="img\TCL TEXT_ logo.png" alt="TCL" class="DemoHeader-logo"/>
+                    <!--<a hide-xs class="DemoHeader-link" ui-sref="app.landing">RCM</a>-->
+                    <a ui-sref-active="active" hide-xs class="DemoHeader-link" ui-sref="app.customer_list" ng-if="vm.show">CUSTOMERS</a>
+                    <a ui-sref-active="active" hide-xs class="DemoHeader-link" ui-sref="app.order_list" ng-if="vm.show">KOT</a>
+                    <a ui-sref-active="active" hide-xs class="DemoHeader-link" ui-sref="app.place_order" ng-if="vm.show">TAKE ORDER</a>
+                </div>
+                <div ng-if="vm.roleName === '5'" layout="row" layout-align="end end">
+                    <!--<a hide-xs class="DemoHeader-link">TCL</a>-->
+                    <img ng-src="img\TCL TEXT_ logo.png" alt="TCL" class="DemoHeader-logo"/>
+                    <a ui-sref-active="active" hide-xs class="DemoHeader-link" ui-sref="app.order_list" ng-if="vm.show">KOT</a>
+                </div>
+                <div layout="row" layout-align="end start">
+                    <span class="user-name" ng-if="vm.show">
+
+                    <span ng-if="vm.userName" ui-sref-opts="{reload: true}">Hi, </span> {{ vm.userName | ucfirst}} </span>
+                    <md-button ng-if="vm.show" class="btn1" ng-click="vm.loggedOut()" >
+                        Logout
+                    </md-button>
+                    <!-- <img ng-if="vm.show" class="btn1" ng-click="vm.loggedOut()" ng-src="img\logout.png" alt="Logout" /> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</md-content>
+<div class="DemoHeader-spacer"></div>

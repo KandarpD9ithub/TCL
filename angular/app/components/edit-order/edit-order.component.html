@@ -1,0 +1,303 @@
+<section layout-gt-xs="row" layout-wrap layout-padding class="noprint">
+    <!--<md-button type="button" class="Button" ng-click="vm.showAdvanced($event)">delete</md-button>-->
+    <section class="demo-container section-margin" layout-align="start start" flex="60">
+           <div layout-align="space-between" layout="row">
+           <md-autocomplete flex="45"
+                     md-no-cache="vm.noCache"
+                     md-selected-item="vm.selectedItem"
+                     md-search-text-change="vm.searchItemTextChange(vm.searchTextItem)"
+                     md-search-text="vm.searchTextItem"
+                     md-selected-item-change="vm.selectedItemChange(item)"
+                     md-items="item in vm.itemSearch(vm.searchTextItem)"
+                     md-item-text="item.name"
+                     md-input-minlength="2"
+                     md-input-maxlength="18"
+                     placeholder="Search Products"
+                    style="max-width: 49% !important">
+                <md-item-template>
+                    <span md-highlight-text="vm.searchTextItem">{{item.name}}</span>
+                </md-item-template>
+                <md-not-found>
+                    No Product matching "{{vm.searchTextItem}}" were found.
+                </md-not-found>
+            </md-autocomplete>
+           </div>
+            <div class="items-heading">
+                Special Items
+            </div>
+                <slick class="products" init-onload=true data="vm.popularItems" infinite=false speed=300 slides-to-show=8 touch-move=false slides-to-scroll=1>
+                    <div ng-repeat="popularItem in vm.popularItems track by $index" style="width:     width: 94px; !important" class="customeProductWidth">
+                        <md-button type="button" class="customButton" style="min-width: 100%;" layout-wrap ng-click="vm.addItems(popularItem)">{{popularItem.name}}</md-button>
+                    </div>
+                </slick>
+            <div class="items-heading">
+                Categories
+            </div>
+            <slick init-onload=true data="vm.categories" infinite=false speed=300 slides-to-show=4 touch-move=false slides-to-scroll=1>
+                <div ng-repeat="category in vm.categories track by $index">
+                    <md-button type="button" class="customCategoryButton" style="min-width: 100%;" layout-wrap ng-click="vm.categoryButton($index)">{{category.category_name}}</md-button>
+                </div>
+            </slick>
+            <!--<div class="hide" ng-model="searchCategory" >
+                <div ng-repeat="subCategoryFilter in vm.subCategory track by $index">
+                <div class="category" >{{subCategoryFilter.sub_category_name}}</div>
+                </div>
+            </div>-->
+            <div class="items-heading">
+                Sub-Categories
+            </div>
+            <div carousel3d
+                 ng-model=" vm.subCategories"
+                 options="vm.options"
+                 on-selected-click="vm.selectedClick(index)"
+                 on-slide-change="vm.slideChanged(index)"
+                 on-last-slide="vm.lastSlide(index)"
+                 on-before-change="vm.beforeChange(index)">
+                <div carousel3d-slide ng-repeat="subCategory in vm.subCategories track by $index" style="transform: none !important; left:32% !important;">
+                    <md-button type="button" class="subCategoryButton" style="min-width: 100%;" layout-wrap ng-click="vm.subCategoryButton($index)">{{subCategory.sub_category_name}}</md-button>
+                                 </div>
+            </div>
+            <!--<slick class="customBottom" on-re-init-="vm.subCategories" ng-if="vm.subCategories.length" infinite=false speed=300 slides-to-show=3 touch-move=false slides-to-scroll=1>
+                <div ng-repeat="subCategory in vm.subCategories track by $index">
+                    <div class="category" ng-click="vm.subCategoryButton($index)">{{subCategory.sub_category_name}}</div>
+                </div>
+            </slick>-->
+            <br>
+            <div class="items-heading">
+                Products
+            </div>
+            <div class="productsHeight">
+                <div layout="row" layout-wrap>
+                    <div class="white" ng-repeat="product in vm.categoryProducts track by $index">
+                        <div type="button" class="productsButton" ng-click="vm.addItems(product)" flex layout="column">
+                            <div flex="70" layout-padding>{{product.name}}</div>
+                            <div flex="30" class="tags" layout-align="end end" ng-repeat="tag in product.tags track by $index">
+                                <img ng-src="{{tag.product_tag}}" alt="tag_icon" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    <section class="demo-container" flex>
+            <div class="md-toolbar-tools">
+                Order Number:  &nbsp; {{vm.orders.order_number}}
+            </div>
+        <div class="items-heading">
+            Order Summary
+            <!--<span class="cancelButton">
+                <img ng-src="img\cancel.png" alt="cancel" ng-disabled="!vm.order.length" ng-click="vm.clearOrder()" />
+            </span>-->
+        </div>
+
+        <div class="text-align" ng-hide="vm.order.length">
+            Nothing ordered yet !
+        </div>
+        <form ng-submit="vm.placeOrder(vm.orders.id)" novalidate>
+            <div layout-gt-sm="column" flex class="itemsHeight">
+                <md-list style="padding: 20px;" flex>
+                    <md-list-item class="md-3-line card" ng-repeat="item in vm.order track by $index" style="margin-bottom: 13px;" ng-if="item.deleted != 'delete'">
+                        <div class="quantity quantity-nav-up">
+                            <div class="quantity-button quantity-up" ng-click="item.new ?vm.up($index): vm.cancelOrder($index, 'edit')">+</div>
+                            <div class="quantity-button quantity-down" ng-click="item.new ?vm.down($index): vm.cancelOrder($index, 'edit')">-</div> 
+                            <input type="number" ng-model="item.quantity" ng-change="vm.change($index)" step="1" min="1" ng-click="item.new ? '' : vm.cancelOrder($index, 'edit')"required>
+                        </div>
+                        <div class="tag" ng-repeat="tag in item.tags track by $index">
+                            <img ng-src="{{tag.product_tag}}" alt="tag_icon" />
+                        </div>
+                        <div class="title">
+                            <span>{{item.name}}</span>
+                        </div>
+                        <div class="base-price">
+                            <span>@{{item.base_price  | number: 2}}</span>
+                        </div>
+                        <div class="base-price">
+                            <span>{{item.price  | number: 2}}</span>
+                        </div>
+                        <md-input-container>
+                            <input type="hidden" ng-model="item.product_id" value="{{item.id}}" ng-init="item.product_id=item.id" />
+                            <input type="hidden" ng-model="item.reason" value="{{item.reason}}" ng-init="item.reason=item.reason" />
+                        </md-input-container>
+                        <md-button type="button" class="md-primary buttonWidth" ng-click="item.new ? vm.deleteItem($index) : vm.cancelOrder($index, 'delete')">X</md-button>
+                        <!--</div>-->
+                    </md-list-item>
+                </md-list>
+            </div>
+            <!-- <md-card flex layout-padding>
+                    <label>Non Chargeable
+                    <input type="checkbox" class="md-warn" ng-click="vm.ncDiscount()" ng-model="vm.nc"
+                           ng-true-value="'1'"></label>
+                    <md-card-content layout="row" layout-align="space-between">
+                        <select ng-if="vm.nc === '1'"  ng-options="list.name for list in vm.ncList"
+                                ng-model="vm.ncselected" required>
+                            <option value="">-- choose --</option>
+                        </select>
+                    </md-card-content>
+                    <input type="text" ng-if="vm.nc === '1'" ng-model="vm.comment" required
+                           placeholder="Please enter Message"/>
+
+                </md-card>
+            <md-card flex layout-padding>
+                <md-radio-group ng-model="vm.payment" layout="row">
+                    <md-radio-button value="1" class="md-warn">Cash</md-radio-button>
+                    <md-radio-button value="2" class="md-warn"> Card </md-radio-button>
+                    <md-radio-button value="3" class="md-warn"> Paytm </md-radio-button>
+                </md-radio-group>
+                <input type="number" ng-if="vm.payment === '1'" ng-model="vm.cash" value=""
+                       placeholder="Please enter cash" required/>
+            </md-card>
+            <div class="panel-footer total_text_align">
+                <div layout="row" layout-wrap>
+                    <span>Subtotal : {{ vm.taxAndDiscount.subtotal ? vm.taxAndDiscount.subtotal : '0'}} INR  | </span> &nbsp;
+                    <span>Discount : {{ vm.taxAndDiscount.discount ? vm.taxAndDiscount.discount : '0'}} INR | </span>&nbsp;
+                    <span>Offer :  {{ vm.taxAndDiscount.offer ? vm.taxAndDiscount.offer : '0'}} INR </span>
+                    <br>
+                    <span>SGST {{ vm.taxAndDiscount.sgst_amount }}% : {{ vm.taxAndDiscount.sgst ? vm.taxAndDiscount.sgst : '0'}} INR | </span>
+                    <span>CGST {{ vm.taxAndDiscount.cgst_amount }}% : {{ vm.taxAndDiscount.cgst ? vm.taxAndDiscount.cgst : '0'}} INR</span>
+                </div>
+                <div layout="row" ng-if="vm.serviceTax">
+                    <span>Tax {{vm.serviceTax.tax_rate | number:0}}% {{vm.allTaxType[vm.serviceTax.tax_type]}} on {{vm.serviceTax.tax_name}} : {{vm.taxAndDiscount.serviceTaxAmount}}</span>
+                </div>
+                <div layout="row" layout-wrap ng-repeat="(key, value) in vm.taxAndDiscount.taxes track by $index">
+                    <span ng-if="vm.taxType[key] === 1">Tax (CGST: {{(vm.allTaxes[key])/2 | number:0}}%, SGST: {{(vm.allTaxes[key]/2)  | number:0}}%) {{vm.allTaxType[vm.taxType[key]]}} on {{key}} : {{value}}</span>
+                    <span ng-if="vm.taxType[key] === 3">Tax {{(vm.allTaxes[key]) | number:0}}% {{vm.allTaxType[vm.taxType[key]]}} on {{key}} : {{value}}</span>
+                </div>
+            </div>
+            <div layout="row" flex>
+                <md-select ng-model="vm.amountType" class="selectType" placeholder="Type">
+                    <md-option value="fixed">Fixed</md-option>
+                    <md-option value="percent">
+                        Percent
+                    </md-option>
+                </md-select>
+                <input type="number" ng-model="vm.discount" value="" ng-change="vm.changeDiscount()"
+                       placeholder="Apply discount" class="discountInput"/>
+                        <span class="grandTotal">
+                    Grand Total :
+                    <span class="price">{{ vm.taxAndDiscount.grand_total ? vm.taxAndDiscount.grand_total : '0'}} INR </span>
+                    </span>
+            </div> -->
+            <md-card flex layout-padding>
+                    <div layout="row" flex>
+                        <md-select ng-model="vm.table_no" class="selectType" placeholder="Add Table No.">
+                            <md-option value="{{key}}" ng-repeat="(key, value) in vm.tables">
+                                {{value}}
+                            </md-option>
+                        </md-select>
+                        <!-- <input type="text" ng-model="vm.table_no" value="" required
+                               placeholder="Add Table No." class="discountInput"/> -->
+                        <!-- <md-select ng-model="vm.amountType" class="selectType" placeholder="--Discount Type--" ng-disabled="vm.taxAndDiscount.offer">
+                            <md-option value="fixed">Fixed</md-option>
+                            <md-option value="percent">
+                                Percent
+                            </md-option>
+                        </md-select>
+                        <input type="number" ng-disabled="!vm.amountType" ng-model="vm.discount" value="" ng-change="vm.changeDiscount()"
+                               placeholder="Add discount" class="discountInput"/> -->
+                    </div> 
+                    <md-tabs md-dynamic-height md-border-bottom md-no-ink md-no-ink-bar md-selected="vm.selectedIndex">
+                      <md-tab label="Cash" ng-click="vm.ncDiscount()">
+                          <div layout="row" flex>
+                            <label class="labelSize">Enter Amount</label>
+                            <input type="hidden"  ng-model="vm.payment" value="1" required />
+                            <input type="number" ng-model="vm.cash" value="" required placeholder="Please enter cash" class="cashInput"/>
+                           </div> 
+                       
+                      </md-tab>
+                      <md-tab label="Card" ng-click="vm.ncDiscount()">
+                         <div layout="row" flex>
+                            <label class="labelSize">Enter Card No.</label>
+                            <input type="hidden"  ng-model="vm.payment" value="2" required />
+                            <input type="number" ng-model="vm.card_number" value="" required placeholder="Enter last four digits" class="cashInput"/>
+                           </div>
+                      </md-tab>
+                      <md-tab label="Paytm" ng-click="vm.ncDiscount()">
+                         <div layout="row" flex>
+                            <label class="labelSize">Enter PAYTM Number</label>
+                            <input type="hidden"  ng-model="vm.payment" value="3" required />
+                            <input type="number" ng-model="vm.paytm_mobile" value="" required placeholder="Enter paytm number" class="cashInput"/>
+                           </div>
+                      </md-tab>
+                      <md-tab label="NC" ng-click="vm.ncDiscount()">
+                        <div layout="row" flex>
+                        <md-select ng-model="vm.ncselected" class="selectType" placeholder="--Choose Nc--">
+                            <md-option value="{{list.id}}" ng-repeat="list in vm.ncList">
+                                {{list.name}}
+                            </md-option>
+                        </md-select>
+                             <!-- <md-card-content layout="row" layout-align="space-between">
+                                <select ng-options="list.name for list in vm.ncList"
+                                        ng-model="vm.ncselected" required>
+                                    <option value="">-- choose --</option>
+                                </select>
+                            </md-card-content> -->
+                            <input type="text"  ng-model="vm.comment" value=""
+                                   placeholder="Please enter Message"  class="cashInput"/>
+                        </div>
+                      </md-tab>
+                    </md-tabs>              
+                    <!-- <label>Non Chargeable
+                    <input type="checkbox" class="md-warn" ng-click="vm.ncDiscount()" ng-model="vm.nc"
+                           ng-true-value="'1'"></label>
+                     -->
+                     <md-divider ></md-divider>
+                     <div layout="column" layout-wrap>
+                         <div layout="row" layout-align="space-between">
+                            <span>Subtotal</span>
+                            <span>{{ vm.taxAndDiscount.subtotal ? vm.taxAndDiscount.subtotal : '0'}} INR</span>
+                        </div>
+
+                        <div layout="row" layout-align="space-between">
+                            <span>Discount</span>
+                            <span>{{ vm.taxAndDiscount.discount ? vm.taxAndDiscount.discount : '0'}} INR</span>
+                        </div>
+                        <div layout="row" layout-align="space-between">
+                            <span>Offer</span>
+                            <span>{{ vm.taxAndDiscount.offer ? vm.taxAndDiscount.offer : '0'}} INR </span>
+                        </div>
+                    <div layout="row" ng-if="vm.serviceTax" layout-align="space-between">
+                        <span>{{vm.serviceTax.tax_rate | number:0}}% {{vm.allTaxType[vm.serviceTax.tax_type]}}</span>
+                        <span>{{vm.taxAndDiscount.serviceTaxAmount}} INR</span>
+                    </div>
+                    <div layout="row" layout-wrap ng-repeat="(key, value) in vm.taxAndDiscount.taxes track by $index" layout-align="space-between">
+                        <span ng-if="vm.taxType[key] === 1">Tax (CGST: {{(vm.allTaxes[key])/2 | number:0}}%, SGST: {{(vm.allTaxes[key]/2)  | number:0}}%) {{vm.allTaxType[vm.taxType[key]]}} on {{key}}</span>
+                        <span ng-if="vm.taxType[key] === 1">{{value | number:2}} INR</span>
+                        <span ng-if="vm.taxType[key] === 3">Tax {{(vm.allTaxes[key]) | number:0}}% {{vm.allTaxType[vm.taxType[key]]}} on {{key}}</span>
+                        <span ng-if="vm.taxType[key] === 3">{{value | number:2}} INR</span>
+                    </div>
+                     <md-divider ></md-divider>
+                    <div layout="row" flex layout-align="space-between">
+                        <!-- <md-select ng-model="vm.amountType" class="selectType" placeholder="Type" ng-disabled="vm.taxAndDiscount.offer">
+                            <md-option value="fixed">Fixed</md-option>
+                            <md-option value="percent">
+                                Percent
+                            </md-option>
+                        </md-select>
+                        <input type="number" ng-disabled="!vm.amountType" ng-model="vm.discount" value="" ng-change="vm.changeDiscount()"
+                               placeholder="Apply discount" class="discountInput"/> -->
+                        <span class="grandTotal">
+                    Grand Total </span>
+                    <span class="price">{{ vm.taxAndDiscount.grand_total ? vm.taxAndDiscount.grand_total : '0'}} INR </span>
+                   
+                    </div>  
+                    </div>  
+                </md-card>
+                 <div layout="row">
+                    <!-- <md-button class="cancelButton" ng-disabled="!vm.order.length"  ng-click="vm.clearOrder()">
+                        Cancel Order
+                    </md-button> -->
+                     <md-button type="submit" ng-disabled="vm.orderDisable"  class="placeOrderButton">
+                        Checkout
+                    </md-button>
+                </div>
+            <!-- <div layout="column" layout-align="end end">
+                <div layout="row">
+                    <md-button type="submit" ng-disabled="vm.orderDisable"  class="placeOrderButton">
+                        <img ng-src="img\place_order.png" alt="Place Order" />
+                    </md-button>
+                </div>
+            </div> -->
+        </form>
+    </section>
+</section>

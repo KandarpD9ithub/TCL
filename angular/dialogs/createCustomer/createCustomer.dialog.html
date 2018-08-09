@@ -1,0 +1,38 @@
+<md-dialog>
+    <form name="userForm" ng-submit="vm.save()">
+
+        <md-toolbar>
+          <div class="md-toolbar-tools">
+            <h2>Create Customer</h2>
+          </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content" layout="column">
+                <md-input-container flex>
+                    <label>Name</label>
+                    <input type="text" ng-model="vm.name" ng-pattern="/^[a-zA-Z\s]*$/" required>
+                    <div ng-messages="userForm.name.$error">
+                        <div ng-show="userForm.name.$error" ng-message="pattern">Name must be letters only.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Mobile</label>
+                    <input type="text" ng-model="vm.contact_number" ng-pattern="/^[0-9]{10}$/" required>
+                    <div ng-messages="userForm.contact_number.$error">
+                        <div ng-show="userForm.contact_number.$error" ng-message="pattern">Please enter a valid phone number.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Email</label>
+                    <input type="email" ng-model="vm.email">
+                </md-input-container>
+             </div>
+        </md-dialog-content>
+
+        <md-dialog-actions>
+            <md-button type="button" ng-click="vm.cancel()">Cancel</md-button>
+            <md-button class="md-primary md-raised" type="submit">Save</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

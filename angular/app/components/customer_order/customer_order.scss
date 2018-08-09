@@ -1,0 +1,26 @@
+.orderWidth {
+	max-width: 11% !important;
+}
+.right-align {
+	text-align:right;
+}
+.left-align {
+	text-align:left;
+}
+.spaceBetween {
+	-webkit-align-items: stretch;
+-ms-flex-align: stretch;
+align-items: stretch;
+-webkit-align-content: stretch;
+-ms-flex-line-pack: stretch;
+align-content: stretch;
+}
+.address_align_right {
+	text-align:right;
+}
+.amount-width {
+	width: 100%
+}
+.amount-width-right {
+	width: 40%
+}

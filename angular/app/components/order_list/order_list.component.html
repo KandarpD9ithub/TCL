@@ -1,0 +1,136 @@
+<div class="md-padding"  layout-md="column" layout-align="start start">
+    <div layout="row" class="searchbox-style" layout-align="space-between">
+    <h1 class="md-headline" class="md-padding" layout-padding>Kitchen Order Ticket(KOT)</h1>
+        <input type="text" ng-model="searchOrder" placeholder="Search by Order Number" class="md-primary md-raised searchOrder">
+       <!--  <md-button ng-if="vm.roleName !== '5'" class="md-primary md-raised" ui-sref="app.place_order" layout-align="end start">Add</md-button> -->
+    </div>
+    <div layout="row" layout-align="end start" class="margin-right-29">
+         <md-button  class="refreshButton" ng-click="vm.refresh()"><i class="material-icons">autorenew</i></md-button>
+        <md-switch class="md-warn warn-color" ng-model="vm.autorefresh" ng-change="vm.killtimer(vm.autorefresh)" aria-label="Switch 1"> <span style="color: black !important;">Auto-refresh</span> <span style="color: black !important;" ng-if="vm.autorefresh === true"> (ON)</span>
+        <span  style="color: black !important;" ng-if="vm.autorefresh === false"> (OFF)</span>
+        </md-switch>
+    </div>
+    <md-content class="md-padding padding-top-0" layout-md="column" layout="row" layout-wrap>
+        <div flex="33" layout="column" dir-paginate="order in vm.orders |filter:searchOrder|itemsPerPage:9">
+            <md-card>
+                <md-card-title>
+                <md-card-title-text layout="row" layout-align="space-between">
+                    <h1 class="md-title">{{order.order_number}}</h1>
+                    <div ng-switch="order.status">
+                        <div ng-switch-when="Ordered">
+                            <md-button type="submit" ng-if="order.role_name !== 5" class="btn1"
+                                       ng-click="vm.editOrder(order.id)">Edit</md-button>
+                            <md-button type="submit" ng-if="order.role_name !== 5 && order.role_name !== 2"  
+                                       ng-click="vm.deleteOrder(order.id)" style="min-width: 0px !important; margin-top: -11px !important;padding: 0px !important;"><img ng-src="/img/rubbish-bin.png" alt="Delete" height="25" width="25" style="margin-top: 13px !important; width:25px !important" /></md-button>
+                            <md-button ng-if="order.role_name === 5" ng-click="vm.statusChange(order.id)" class="btn1">
+                                Accept
+                            </md-button>
+                        </div>
+                        <div ng-switch="order.status">
+                            <div ng-switch-when="In_progress">
+                                <md-button ng-if="order.role_name === 5" ng-click="vm.statusChange(order.id)" class="btn1">
+                                    Ready
+                                </md-button>
+                            </div>
+                        </div>
+                        <div ng-switch="order.status">
+                            <div ng-switch-when="Ready to serve">
+                                <md-button ng-if="order.user_id === order.order_taken_by || order.role_name === 4"  ng-click="vm.statusChange(order.id)" class="btn1">
+                                    Deliver
+                                </md-button>
+                            </div>
+                        </div>
+                    </div>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content layout="row" layout-align="space-between"
+                        <span class="md-subhead">Table No. : {{ vm.tables[order.table_id]}}</span>
+                            <span class="md-subhead">Handler:  {{order.employee.user.name}}</span>
+                </md-card-content>
+                <md-card-content layout="row" layout-align="start start" class="backgroundGrey">
+                        <span class="md-subhead">Customer: {{order.customer.name}} <br>
+                              <span style="margin-left: 68%;">{{order.customer.contact_number}}</span><br>
+                              <span style="margin-left: 30%;">{{order.customer.email}}</span>
+                        </span>
+                </md-card-content>
+                <div layout="row" layout-align="space-between" class="customBorder">
+                        <span layout="column" class="borderRight">
+                            <span ng-if="order.status === 'Ordered'" class="md-subhead color-red customPaddingtop">Ordered<br>
+                            {{ vm.toTimeStamp(order.ordered_at) | date:'shortTime'}}</span>
+                            <span ng-if="order.status !== 'Ordered'" class="md-subhead customPaddingtop">Ordered
+                            <br>
+                            {{ vm.toTimeStamp(order.ordered_at) | date:'shortTime'}}</span>
+                        </span>
+                        <span layout="column" class="borderRight">
+                            <span ng-if="order.status === 'In_progress'" class="md-subhead color-red customPaddingtop">In progress<br>
+                            {{ vm.toTimeStamp(order.progress) | date:'shortTime'}}</span>
+                            <span ng-if="order.status !== 'In_progress'" class="md-subhead customPaddingtop">In progress<br>
+                            {{ vm.toTimeStamp(order.progress) | date:'shortTime'}}</span>
+                        </span>
+                        <span layout="column" class="borderRight">
+                           <span ng-if="order.status === 'Ready to serve'" class="md-subhead color-red customPaddingtop">Ready<br>
+                           {{vm.toTimeStamp(order.ready_at) | date:'shortTime'}}</span>
+                            <span ng-if="order.status !== 'Ready to serve'" class="md-subhead customPaddingtop">Ready<br>{{vm.toTimeStamp(order.ready_at) | date:'shortTime'}}</span>
+                        </span>
+                        <span layout="column">
+                        <span ng-if="order.status === 'Delivered'" class="md-subhead color-red customPaddingtop">Delivered<br>{{vm.toTimeStamp(order.delivered_at) | date:'shortTime'}}</span>
+                            <span ng-if="order.status !== 'Delivered'" class="md-subhead customPaddingtop">Delivered<br>
+                            {{vm.toTimeStamp(order.delivered_at) | date:'shortTime'}}</span>
+                        </span>
+                </div>
+                <md-card-content layout="row" layout-align="start start" class="customheigth">
+                    <md-list class="md-dense" flex>
+                        <md-list-item class="md-3-line">
+                            <div class="md-list-item-text" layout="row" layout-align="space-between">
+                                <h2 class="md-title"><strong>Items</strong></h2>
+                                <h2 class="md-title"><strong>Quantity</strong></h2>
+                            </div>
+                        </md-list-item>
+                        <md-divider ></md-divider>
+                        <md-list-item class="md-3-line" ng-repeat="orderDetail in order.order_detail">
+                            <div class="md-list-item-text" layout="row" layout-align="space-between">
+                                <h3 class="md-subhead">{{ orderDetail.product.name }}</h3>
+                                <h4 class="md-subhead">{{ orderDetail.quantity | number:0 }}</h4>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                </md-card-content>
+                <!-- <div layout="row" layout-align="end start">
+                    <div ng-switch="order.status">
+                        <div ng-switch-when="Ordered">
+                            <md-button type="submit" ng-if="order.role_name !== 5"  class="md-primary md-raised"
+                                       ng-click="vm.editOrder(order.id)">Edit</md-button>
+                            <md-button type="submit" ng-if="order.role_name !== 5"  class="md-primary md-raised"
+                                       ng-click="vm.deleteOrder(order.id)">Delete</md-button>
+                            <md-button ng-if="order.role_name === 5" ng-click="vm.statusChange(order.id)" class="md-primary md-raised">
+                                Accept
+                            </md-button>
+                        </div>
+                    </div>
+                    <div ng-switch="order.status">
+                        <div ng-switch-when="In_progress">
+                            <md-button ng-if="order.role_name === 5" ng-click="vm.statusChange(order.id)" class="md-primary md-raised">
+                                Ready
+                            </md-button>
+                        </div>
+                    </div>
+                    <div ng-switch="order.status">
+                        <div ng-switch-when="Ready to serve">
+                            <md-button ng-if="order.user_id === order.order_taken_by"  ng-click="vm.statusChange(order.id)" class="md-primary md-raised">
+                                Deliver
+                            </md-button>
+                        </div>
+                    </div>
+                </div> -->
+            </md-card>
+        </div>
+    </md-content>
+    <div layout="row" layout-align="center center">
+        <dir-pagination-controls
+                max-size="5"
+                direction-links="true"
+                boundary-links="true" >
+        </dir-pagination-controls>
+    </div>
+</div>
+

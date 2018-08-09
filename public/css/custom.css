@@ -1,0 +1,128 @@
+.ms-parent {
+    margin-top: 25px !important;
+}
+
+.ms-choice {
+    height: 36px !important;
+}
+
+.ms-choice > div {
+    top: 5px !important;
+}
+.menu .ms-parent {
+    margin-top: 0px !important;
+}
+.removeFieldSet {
+    margin-left: -13px;
+    margin-top: 17px;
+}
+.margintop8 {
+    margin-top: 8px !important;
+}
+.divider{
+    border-bottom: 1px solid #ddd;
+}
+.marginleft0 {
+    margin-left: 0px !important;
+}
+.marginright0{
+    margin-right: 0px !important;
+}
+.bold {
+    font-weight: 700;
+}
+.head-color {
+    background-color: #EFEFEF;
+}
+.info-tiles.tiles-success {
+    color: #fff;
+}
+.info-tiles, .shortcut-tiles {
+    margin: 0 0 20px;
+    display: block;
+    border-radius: 0;
+}
+.info-tiles.tiles-success .tiles-heading {
+    background: #95CEFF;
+}
+.info-tiles.tiles-success .tiles-body-alt {
+    background: #7cb5ec;
+}
+.info-tiles .tiles-body-alt, .info-tiles .tiles-body {
+    padding: 10px;
+    font-weight: 300;
+}
+.info-tiles.tiles-primary {
+    color: #fff;
+}
+.info-tiles, .shortcut-tiles {
+    margin: 0 0 20px;
+    display: block;
+    border-radius: 0;
+}
+.info-tiles.tiles-primary .tiles-heading {
+    background: #95CEFF;
+}
+.info-tiles .tiles-heading {
+    padding: 5px 4px;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: .01em;
+}
+.info-tiles.tiles-primary .tiles-body-alt {
+    background: #7cb5ec;
+}
+.info-tiles .tiles-body-alt, .info-tiles .tiles-body {
+    padding: 10px;
+    font-weight: 300;
+}
+.info-tiles .tiles-body-alt {
+    font-size: 23px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    font-family: sans-serif;
+}
+body{
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+.paddingTop10 {
+    padding-top: 10px;
+}
+
+.ms-drop {
+    z-index: 9999 !important;
+}
+.align{
+    margin-top: -7px;
+}
+#hor-line{
+  margin-top: -10px;
+}
+.hide-this {
+    display: none;
+}
+
+.colorRed {
+    color: #bf5329 !important;
+    background-color: transparent !important;
+    border: none !important;
+}
+.colorGreen {
+    margin-left: 14px;
+}
+.delete-icon {
+    margin-top: -20px;
+    margin-left: 40%;
+}
+.navbar-brand {
+    padding: 4px 13px 10px 13px !important;
+}
+.error {
+    color: #a94442;
+}
+.paddingleft5 {
+    padding-left: 5px !important;  
+}

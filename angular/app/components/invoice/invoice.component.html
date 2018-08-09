@@ -1,0 +1,52 @@
+<div>
+    <md-card>
+        <md-toolbar layout="row" class="md-hue-3">
+            <div class="md-toolbar-tools">
+                <span>Invoice</span>
+            </div>
+        </md-toolbar>
+        <md-content>
+            <md-list class="md-dense" flex>
+                <md-subheader class="md-no-sticky">{{vm.orders.order_number}}</md-subheader>
+                <div layout="row" layout-align="start start">
+                    <md-subheader>Customer Name:</md-subheader>
+                    <md-subheader class="md-no-sticky">{{vm.orders.customer_name}}</md-subheader>
+                </div>
+                <md-list-item>
+                    <div class="md-list-item-text" layout="row" layout-padding>
+                        <h3 class="custom-width">Item</h3>
+                        <h3 class="custom-width">Qty</h3>
+                        <h3 class="custom-width">Price</h3>
+                    </div>
+                </md-list-item>
+                <md-divider ></md-divider>
+                <md-list-item class="md-3-line" ng-repeat="order in vm.orders.order_detail">
+                    <div class="md-list-item-text" layout="row" layout-padding>
+                        <h3 class="custom-width">{{ order.product_name }}</h3>
+                        <h4 class="custom-width">{{ order.quantity }}</h4>
+                        <p class="custom-width">{{ order.product_price }}</p>
+                    </div>
+                </md-list-item>
+                <md-divider ></md-divider>
+                <md-list-item class="md-3-line">
+                    <div class="md-list-item-text" layout="column" layout-padding>
+                        <h3>Sub Total : &nbsp;&nbsp;{{ vm.orders.total.subtotal }}</h3>
+                        <h3>Service Charge : &nbsp;&nbsp;{{ vm.orders.total.service_charge }}</h3>
+                        <h3>Vat : &nbsp;&nbsp;{{ vm.orders.total.vat }}</h3>
+                        <h3>Service Tax : &nbsp;&nbsp;{{vm.orders.total.service_tax }}</h3>
+                        <h3 ng-if="vm.orders.total.discount">Discount : &nbsp;&nbsp;{{vm.orders.total.discount}}</h3>
+                        <h3 ng-if="vm.orders.total.offer">Offer Discount: &nbsp;&nbsp;{{vm.orders.total.offer}} </h3>
+                        <h3>Grand Total : &nbsp;&nbsp;{{ vm.orders.total.grand_total }}</h3>
+                    </div>
+                </md-list-item>
+            </md-list>
+        </md-content>
+        <md-content class="noprint">
+            <div layout="row" layout-align="end end">
+                <md-button  class="md-primary" ng-click="vm.print()">Print</md-button>
+                <md-button class="invoice-btn" ui-sref="app.place_order">RESET</md-button>
+            </div>
+        </md-content>
+    </md-card>
+
+</div>

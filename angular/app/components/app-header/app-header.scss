@@ -1,0 +1,40 @@
+.logout_button{
+  cursor:pointer;
+}
+.btn1 {
+  -moz-user-select: none;
+  align-items: center;
+  border: 1px solid #004a80;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #004a80;
+  cursor: pointer;
+  display: inline-block;
+  font-family: inherit;
+  font-size: 14px;
+  font-style: inherit;
+  font-variant: inherit;
+  font-weight: 500;
+  line-height: 18px !important;
+  margin: 10px 0;
+  min-height: 25px;
+  min-width: 93px;
+  outline: medium none;
+  overflow: hidden;
+  padding: 0 9px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-transform: none;
+  text-transform: uppercase;
+  transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) 0s, background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+  white-space: nowrap;
+}
+.user-name {
+      text-decoration: none;
+    color: #000000 !important;
+    padding: 0 20px;
+    display: inline-block;
+    transition: 250ms background-color;
+    line-height: 50px;
+}

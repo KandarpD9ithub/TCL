@@ -1,0 +1,16 @@
+{
+    "lang": "en",
+    "name": "TCL",
+    "short_name": "TCL",
+    "display": "standalone",
+    "start_url": "\/?homescreen=1",
+    "background_color": "#ffffff",
+    "theme_color": "#0690B7",
+    "icons": [
+        {
+            "src": "img\/icon.png",
+            "sizes": "198x198",
+            "type": "image\/png"
+        }
+    ]
+}

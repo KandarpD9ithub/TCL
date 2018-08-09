@@ -1,0 +1,95 @@
+<md-dialog class="printI">
+    <md-toolbar class="noprint">
+      <div class="md-toolbar-tools">
+        <h2>Invoice</h2>
+      </div>
+    </md-toolbar>
+    <div layout="row" id="printSectionId">
+        <md-dialog-content>
+            <md-list class="md-dense" flex>
+                <div layout="column" class="address_align">
+                    <md-subheader class="colour_class">
+                        <b>{{vm.locals.orders.franchise_name}}</b><br>
+                    <span>
+                        {{vm.locals.orders.address_line_one}},<br></span>
+                    <span ng-if="vm.locals.orders.address_line_two">
+                        {{vm.locals.orders.address_line_two}},<br>
+                    </span>
+                        {{vm.locals.orders.city}}, {{vm.locals.orders.region}},<br>
+                        {{vm.locals.orders.country}}
+                    </md-subheader>
+
+                </div>
+                <br>
+                <div layout="row" layout-align="center center" class="address_align layoutRow layoutCenter">
+                    <md-subheader class="colour_class">GSTIN:  {{vm.locals.orders.gst_number}}</md-subheader>
+                </div>
+                <div layout="row" layout-align="center center" class="address_align layoutRow layoutCenter">
+                    <md-subheader class="colour_class">Bill Number:  {{vm.locals.orders.transaction_id}}</md-subheader>
+                </div>
+                <div layout="row" layout-align="center center" class="address_align layoutRow layoutCenter">
+                    <!--<md-subheader>Customer Name:</md-subheader>-->
+                    <!--<md-subheader class="md-no-sticky">{{vm.locals.orders.customer_ name}}</md-subheader>-->
+                    <md-subheader class="colour_class">Date: {{vm.locals.orders.created_at}}</md-subheader>
+
+                </div>
+                <div layout="row" layout-align="center center" class="address_align layoutRow layoutCenter">
+                    <md-subheader class="colour_class">Counter Person:  {{vm.locals.orders.order_taken_by}}</md-subheader>
+                </div>
+                <md-list-item>
+                    <div class="md-list-item-text layoutRow" layout="row">
+                        <h3 class="custom-width-name">Item</h3>
+                        <h3 class="custom-width address_align layoutCenter">Qty</h3>
+                        <h3 class="custom-width address_align layoutCenter">Price</h3>
+                    </div>
+                </md-list-item>
+                <md-divider class="divider"></md-divider>
+                <md-list-item class="md-3-line" ng-repeat="order in vm.locals.orders.order">
+                    <div class="md-list-item-text layoutRow item-font" layout="row">
+                        <h3 class="custom-width-name">{{ order.name }}</h3>
+                        <h4 class="custom-width address_align layoutCenter">{{ order.quantity }}</h4>
+                        <p class="custom-width colour_class address_align layoutCenter">{{ order.price }}</p>
+                    </div>
+                </md-list-item>
+                <md-divider class="divider"></md-divider>
+                <md-list-item class="md-3-line">
+                    <div class="md-list-item-text layoutColumn layoutCenter address_align" layout="column" layout-align="center center">
+                        <h3>Total : &nbsp;&nbsp;{{ vm.locals.orders.subtotal }}</h3>
+                        <h3 ng-if="vm.locals.orders.discount">Discount : &nbsp;&nbsp;{{vm.locals.orders.discount ? vm.locals.orders.discount : '0'}}</h3>
+                        <h3 ng-if="vm.locals.orders.offer">Offer Discount: &nbsp;&nbsp;{{vm.locals.orders.offer ? vm.locals.orders.offer : '0'}} </h3>
+                        <h3 ng-if="vm.locals.orders.total.sgst">SGST {{ vm.locals.orders.total.sgst_amount }} % : &nbsp;&nbsp;{{ vm.locals.orders.total.sgst }}</h3>
+                        <h3 ng-if="vm.locals.orders.total.cgst">CGST {{ vm.locals.orders.total.cgst_amount }} % : &nbsp;&nbsp;{{ vm.locals.orders.total.cgst }}</h3>
+                        <!--<h3 ng-if="vm.locals.orders.total.service_charge">Service Charges {{ vm.locals.orders.total.service_charge_amount }} % : &nbsp;&nbsp;{{ vm.locals.orders.total.service_charge }}</h3>
+                        <h3 ng-if="vm.locals.orders.total.vat">Vat {{ vm.locals.orders.total.vat_amount }} % : &nbsp;&nbsp;{{ vm.locals.orders.total.vat }}</h3>
+                        <h3 ng-if="vm.locals.orders.total.service_tax">Service Tax {{ vm.locals.orders.total.service_tax_amount }} % : &nbsp;&nbsp;{{vm.locals.orders.total.service_tax }}</h3>-->
+                        <b>Net Total : &nbsp;&nbsp;{{ vm.locals.orders.grand_total }}</b>
+                        <b>Cash : &nbsp;&nbsp;{{ vm.locals.orders.cash_given }}</b><br>
+                        <b>Change : &nbsp;&nbsp;{{ vm.locals.orders.changeAmount }}</b>
+                    </div>
+                </md-list-item>
+                <div layout="row" layout-align="center center" class="layoutRow layoutCenter">
+                    <b>Composition Taxable Person</b>
+                </div>
+                <md-divider class="divider"></md-divider>
+                <div layout="row" layout-align="center center" class="layoutRow layoutCenter">
+                    <b>Mode of Payment:</b>&nbsp;&nbsp;
+                    <span class="marginTop">{{vm.locals.orders.payment}}</span>
+                </div>
+                <md-divider class="divider"></md-divider>
+                <div layout="column" layout-align="center center" class="layoutColumn layoutCenter address_align">
+                    <md-subheader class="colour_class">
+                        FEEDBACK {{ vm.locals.orders.store_manager_email}}<br>
+                        HAVE A NICE DAY</md-subheader>
+                </div>
+                <!--<div layout="row" layout-align="center center" class="layoutRow layoutCenter">
+
+                </div>-->
+            </md-list>
+        </md-dialog-content>
+    </div>
+
+    <md-dialog-actions class="noprint">
+        <md-button type="button" ng-click="vm.cancel()">Cancel</md-button>
+        <md-button type="button" class="md-primary md-raised" ng-click="vm.print('printSectionId')">Print</md-button>
+    </md-dialog-actions>
+</md-dialog>

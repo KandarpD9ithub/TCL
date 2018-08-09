@@ -1,0 +1,63 @@
+<div layout-xl="column" layout-align="start start" class="md-padding">
+    <div layout="row" class="searchbox-style" layout-align="space-between">
+        <h1 class="md-headline" class="md-padding" layout-padding>Customers</h1>
+        <md-button layout-align="end start" class="md-primary md-raised customAdd" ui-sref="app.create_customer">Add</md-button>
+        <input type="text" ng-model="searchCustomer" layout-align="end start" placeholder="Search by Name, Email and Phone Number" class="searchOrder">
+       <!--  <md-button ng-if="vm.roleName !== '5'" class="md-primary md-raised" ui-sref="app.place_order" layout-align="end start">Add</md-button> -->
+        <!--<md-button><i class="material-icons" ng-click="killtimer()">autorenew</i></md-button>
+        <md-switch ng-model="data.cb1" aria-label="Switch 1">
+        </md-switch>-->
+
+    </div>
+    <md-card>
+        <md-card-title layout="row" layout-pading>
+            <md-card-title-text layout-align="start start">
+                <h2 class="md-title">Full Name</h2>
+            </md-card-title-text>
+            <md-card-title-text layout-align="start start">
+                <h2 class="md-title">Email Id</h2>
+            </md-card-title-text>
+            <md-card-title-text layout-align="start start">
+                <h2 class="md-title">Mobile Number</h2>
+            </md-card-title-text>
+            <md-card-title-text layout-align="start start">
+                <h2 class="md-title">Address</h2>
+            </md-card-title-text>
+            <md-card-title-text layout-align="end end">
+                <h2 class="md-title"><i class="material-icons">more_vert</i></h2>
+            </md-card-title-text>
+        </md-card-title>
+         <md-divider ></md-divider>
+        <div dir-paginate="customer in vm.customers |filter:searchCustomer|itemsPerPage:10">
+            <md-card-title layout="row" layout-pading>
+                <md-card-title-text layout-align="start start">
+                    <span class="md-subhead">{{customer.name}}</span>
+                </md-card-title-text>
+                <md-card-title-text layout-align="start start">
+                    <span class="md-subhead">{{customer.email}}</span>
+                </md-card-title-text>
+                <md-card-title-text layout-align="start start">
+                    <span class="md-subhead">{{customer.contact_number}}</span>
+                </md-card-title-text>
+                <md-card-title-text layout-align="start start">
+                    <span class="md-subhead">{{customer.address_line_one}} {{customer.address_line_two}}<br>{{customer.city}}<br>{{customer.region}} {{ customer.country.name}}
+
+                    </span>
+                </md-card-title-text>
+                <md-card-title-text layout-align="end end">
+                <md-button type="submit" class="btn1" ng-click="vm.customerOrders(customer.id)">Orders</md-button>
+                </md-card-title-text>
+            </md-card-title>
+            <md-divider ></md-divider>    
+        </div>
+        
+    </md-card>
+    <div layout="row" layout-align="center center">
+        <dir-pagination-controls
+                max-size="5"
+                direction-links="true"
+                boundary-links="true" >
+        </dir-pagination-controls>
+    </div>
+</div>
+

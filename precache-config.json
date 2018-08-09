@@ -1,0 +1,55 @@
+{
+  "staticFileGlobs": [
+    "public/fonts/Myriad Pro Bold.ttf",
+    "public/fonts/Myriad Pro Regular.ttf",
+    "public/build/js/final-*.js",
+    "public/build/css/final-*.css",
+    "public/img/**/*.{png,jpg,gif,svg}"
+  ],
+  "stripPrefix": "public",
+  "maximumFileSizeToCacheInBytes": 5242880,
+  "runtimeCaching": [{
+    "urlPattern": "'/'",
+    "handler": "cacheFirst"
+  }, {
+    "urlPattern": "'https://fonts.googleapis.com/'",
+    "handler": "cacheFirst"
+  }, {
+    "urlPattern": "'https://fonts.gstatic.com/'",
+    "handler": "cacheFirst"
+  }, {
+    "urlPattern": "'https://ghbtns.com/'",
+    "handler": "cacheFirst"
+  }, {
+    "urlPattern": "'/views/dialogs/createCustomer/createCustomer.dialog.html'",
+    "handler": "cacheFirst"
+  },{
+    "urlPattern": "'http://billing.rcm.com/api'",
+    "handler": "networkFirst"
+    }, {
+      "urlPattern": "'/customer'",
+      "handler": "fastest",
+      "options": {
+        "cache": {
+          "maxEntries": 10,
+          "name": "customer-cache"
+        }
+      }
+  }, {
+    "urlPattern": "'/api/popularItems'",
+    "handler": "cacheFirst"
+  }, {
+    "urlPattern": "'/api/menu-popular-products'",
+    "handler": "cacheFirst"
+  }, {
+    "urlPattern": "'/api/all/taxes'",
+    "handler": "cacheFirst"
+  }, {
+    "urlPattern": "'/api/franchise/details'",
+    "handler": "cacheFirst"
+  }, {
+    "urlPattern": "'/api/products'",
+    "handler": "cacheFirst"
+  }],
+  "handleFetch": true
+}
